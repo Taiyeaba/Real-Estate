@@ -30,10 +30,10 @@ export const properties = [
     featured: true,
     architect: "Marmol Radziner",
     images: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/4w71S8kV/lycs-architecture-k-Udb-EEMc-Rw-E-unsplash.jpg",
+      "https://i.ibb.co.com/0p3dF6rf/pexels-artbovich-8135492.jpg",
+      "https://i.ibb.co.com/GQv4sY95/pexels-shaza-jocarlos-841367558-39829574.jpg",
+      "https://i.ibb.co.com/CKjZVnRy/pexels-shaza-jocarlos-841367558-39017614.jpg",
     ],
     description:
       "Commanding an unrivaled promontory behind private gates in prestigious Bel-Air, this architectural masterpiece marries organic materiality with precision engineering. Designed to blur boundaries between interior gallery spaces and the Southern California horizon, floor-to-ceiling motorized Fleetwood glass reveals 270-degree canyon-to-ocean vistas.\n\nThe primary suite occupies its own private wing with dual spa baths, bookmatched Calacatta marble, and custom Poliform dressing rooms. Outside, a 75-foot zero-edge infinity pool appears suspended above the hills, complemented by an outdoor culinary pavilion, sunken fire pit lounge, and subterranean 1,500-bottle wine tasting vault.",
@@ -73,10 +73,10 @@ export const properties = [
     featured: true,
     architect: "Robert A.M. Stern Architects",
     images: [
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/xRMpVCW/frames-for-your-heart-2d4l-AQAlb-DA-unsplash.jpg",
+      "https://i.ibb.co.com/JjFwS867/zac-gudakov-95-UK5a-Vgx54-unsplash.jpg",
+      "https://i.ibb.co.com/tpSzZ5cv/pexels-ansar-muhammad-380085065-27562206.jpg",
+      "https://i.ibb.co.com/B2BRZtSp/pexels-shaza-jocarlos-841367558-39733020.jpg",
     ],
     description:
       "Occupying the top three floors of one of the Upper East Side's most celebrated limestone towers, Penthouse A represents the apex of Manhattan vertical living. Direct elevator access opens into a double-height grand gallery anchored by a sculptural bronze-and-travertine staircase.\n\nFormal entertaining spaces feature 14-foot ceiling heights, herringbone French white oak parquet, and three wood-burning fireplaces with hand-carved stone mantels. A continuous wrap-around loggia delivers panoramic vistas of Central Park, the Reservoir, and the dramatic skyline architecture of Billionaires' Row.",
@@ -116,10 +116,10 @@ export const properties = [
     featured: true,
     architect: "McKim, Mead & White (Restoration: Peter Marino)",
     images: [
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/G3ThbWYK/pexels-ron-greenberg-1098633379-20708166.jpg",
+      "https://i.ibb.co.com/DHYwPXTV/pexels-artbovich-7174386.jpg",
+      "https://i.ibb.co.com/HJp4Vc6/lotus-design-n-print-7v5r-Os-M6-Fbc-unsplash.jpg",
+      "https://i.ibb.co.com/CpHZvsqc/lotus-design-n-print-Rn-Ao-ha4bp-M-unsplash.jpg",
     ],
     description:
       "A rare 25-foot-wide neoclassical limestone mansion on one of the Upper East Side's most coveted park blocks. Conceived during the Gilded Age and recently brought to modern mechanical perfection over a four-year restoration, the residence spans six lavishly appointed levels.\n\nHighlights include original mahogany wood paneling, an English basement with private wine cave, a full-floor primary suite with dual marble dressing boudoirs, and a rooftop observatory garden overlooking iconic pre-war townscapes.",
@@ -159,10 +159,10 @@ export const properties = [
     featured: true,
     architect: "SAOTA Architecture",
     images: [
-      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/PzWjCSFp/pexels-wiki15-canton-598594475-28681443.jpg",
+      "https://i.ibb.co.com/v4T12wCV/pexels-s3t-koncepts-1636465088-28853352.jpg",
+      "https://i.ibb.co.com/kVjLPQQZ/pexels-curtis-adams-1694007-4682110.jpg",
+      "https://i.ibb.co.com/gMwW6gpM/pexels-the-r-e-editor-849420489-28272353.jpg",
     ],
     description:
       "Situated in Miami Beach's premier guard-gated island sanctuary, this SAOTA-designed waterfront retreat represents the vanguard of subtropical luxury. Sweeping cantilevered rooflines float above expansive living galleries clad in Brazilian ipe wood and Italian travertine.\n\nOutside, lush tropical gardens framed by mature royal palms lead to a 100-foot private deepwater yacht dock accommodating vessels up to 130 feet. Features include an infinity-edge perimeter pool, outdoor Teppanyaki kitchen, private dockside cabana, and unobstructed sunset views over the Biscayne Bay skyline.",
@@ -202,10 +202,10 @@ export const properties = [
     featured: false,
     architect: "Charles Cunniffe Architects",
     images: [
-      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/gLRx8hvx/pexels-sn-che-3918651-9643118.jpg",
+      "https://i.ibb.co.com/YF5QbbR8/pexels-fhstudio-13201481.jpg",
+      "https://i.ibb.co.com/GfSX7ZgZ/pexels-michaelgaultphotos-10258633.jpg",
+      "https://i.ibb.co.com/YTBRXcvv/pexels-artbovich-7061677.jpg",
     ],
     description:
       "Perched in Aspen's most revered neighborhood, Red Mountain, this architectural masterpiece captures sweeping vistas extending from Independence Pass across Aspen Mountain to Mt. Sopris. Constructed from native Colorado sandstone, structural steel, and reclaimed timber, it marries mountain majesty with museum-level finishing.\n\nHeated stone terraces allow year-round outdoor entertaining, complete with a sunken hot tub overlooking snowy peaks. A dedicated ski-tuning locker room, oxygen-enriched primary bedroom suite, and two-story stone fireplace make this the definitive Colorado winter residence.",
@@ -245,10 +245,10 @@ export const properties = [
     featured: true,
     architect: "Annabelle Selldorf",
     images: [
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/YFVtm4VT/point3d-commercial-imaging-ltd-45-1t-ND3k-unsplash.jpg",
+      "https://i.ibb.co.com/hJTC2w2c/pexels-gerdiephotography-g-2148876750-34909557.jpg",
+      "https://i.ibb.co.com/60vrcSLs/pexels-curtis-adams-1694007-36777567.jpg",
+      "https://i.ibb.co.com/mpY9H50/aalo-lens-Xph-EJ-22v-E-unsplash-1.jpg",
     ],
     description:
       "Available for bespoke long-term leasing, this full-floor corner residence in the historic Tribeca West landmark district blends authentic 19th-century cast-iron architectural bones with Selldorf Architects' restrained modern refinement.\n\nTwenty-four oversized double-hung windows flood the gallery living room with natural light throughout the day. Custom Danish oak millwork, Bulthaup kitchen fixtures, Gaggenau 400-series appliances, and a serene spa bathroom wrapped in honed Pietra d'Avola stone create an unforgettable downtown haven.",
@@ -288,10 +288,10 @@ export const properties = [
     featured: false,
     architect: "Sir Aston Webb (Refurbished 2023)",
     images: [
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/RGDhnVYj/pexels-wiki15-canton-598594475-28681441.jpg",
+      "https://i.ibb.co.com/bScgf7C/frames-for-your-heart-z-SG-kd-L6vw-unsplash.jpg",
+      "https://i.ibb.co.com/RpDWMKDM/pexels-ranamatloob567-27923189.jpg",
+      "https://i.ibb.co.com/Hf7RQMTq/pexels-jonathanborba-10153048.jpg",
     ],
     description:
       "A peerless Grade-II listed Mayfair townhouse offering the highest standards of international turnkey luxury. Meticulously brought into the modern era while preserving grand Portland stone balustrades, classical ceiling mouldings, and towering sash apertures.\n\nFeatures include a private passenger lift servicing every level, state-of-the-art cinema, private temperature-controlled subterranean wine room, dedicated security command desk, and private rear access leading to an integral two-car mews garage.",
@@ -331,10 +331,10 @@ export const properties = [
     featured: true,
     architect: "Max Strang Architecture",
     images: [
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/xKCRV2tG/salman-saqib-Wa-C-JFf-F21-M-unsplash.jpg",
+      "https://i.ibb.co.com/RkXMJRnH/pexels-reyd-valencia-2159301653-36829724.jpg",
+      "https://i.ibb.co.com/rKhP2tdz/aalo-lens-Ez7fz5mavj0-unsplash.jpg",
+      "https://i.ibb.co.com/mrqnZjjP/pexels-gerson-lozano-1316808-15468160.jpg",
     ],
     description:
       "A breathtaking modern waterfront lease opportunity on the exclusive Venetian Islands. Offering open bay views framed by lush native landscaping, this residence was designed specifically for indoor-outdoor Florida living.\n\nFully appointed with bespoke Italian furnishings by Minotti and B&B Italia, the home features an open-concept great room, private office overlooking the water, infinity pool with integrated spa, and an expansive rooftop terrace enjoying uninterrupted sunset panoramas of the Downtown Miami skyline.",
@@ -374,10 +374,10 @@ export const properties = [
     featured: false,
     architect: "Kendle Design Collaborative",
     images: [
-      "https://images.unsplash.com/photo-1600585152915-d208bec867a1?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/3yZY6gj9/andre-francois-mckenzie-08u-IUe2a9-XY-unsplash.jpg",
+      "https://i.ibb.co.com/ksR5ngL0/pexels-joel-de-la-cruz-3529563-31234945.jpg",
+      "https://i.ibb.co.com/N27nQ723/pexels-joel-de-la-cruz-3529563-31234942.jpg",
+      "https://i.ibb.co.com/c9f5Zpv/pexels-curtis-adams-1694007-3288103.jpg",
     ],
     description:
       "Harmonizing completely with the Sonoran Desert landscape, this rammed-earth and zinc architectural residence is positioned on nearly five private elevated acres. Natural boulder outcroppings puncture indoor living galleries, evoking an organic union between shelter and environment.\n\nThe residence features expansive cantilevered overhangs providing natural cooling, a multi-tier negative edge pool that mirrors desert sunsets, an indoor putting studio, and an independent detached two-bedroom guest casita.",
@@ -417,10 +417,10 @@ export const properties = [
     featured: false,
     architect: "Lake|Flato Architects",
     images: [
-      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/S4hTpdw9/pexels-frans-van-heerden-201846-1438832.jpg",
+      "https://i.ibb.co.com/VpJjNhnL/pexels-the-r-e-editor-849420489-28272351.jpg",
+      "https://i.ibb.co.com/zhm2VnWf/pexels-shaza-jocarlos-841367558-39017620.jpg",
+      "https://i.ibb.co.com/wFZvBNpq/pexels-luizavenanci-29302986.jpg",
     ],
     description:
       "Designed by the celebrated firm Lake|Flato, this private Lake Austin compound celebrates Texas limestone, blackened steel, and cypress wood. The layout is separated into interconnected pavilions linked by glass-walled breezeways and tranquil reflecting pools.\n\nA gently sloping lawn flanked by centuries-old live oaks leads down to a private two-slip hydraulic boat dock with upper party sundeck. Inside, massive steel pivot doors open the living hall to the lake breeze, framed by a 60-foot lap pool.",
@@ -460,10 +460,10 @@ export const properties = [
     featured: false,
     architect: "Emery Roth & Sons (Interiors by Yabu Pushelberg)",
     images: [
-      "https://images.unsplash.com/photo-1502005229762-ee1b2da97ba4?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/1fc2jQSZ/pexels-curtis-adams-1694007-7601264.jpg",
+      "https://i.ibb.co.com/zhyMsgBq/pexels-curtis-adams-1694007-8186516.jpg",
+      "https://i.ibb.co.com/HLX81RD7/pexels-dropshado-31737836.jpg",
+      "https://i.ibb.co.com/wr2KVwLm/pexels-ranamatloob567-26886914.jpg",
     ],
     description:
       "Perched directly across from Central Park, this grand duplex residence offers an unrivaled vantage point overlooking the full sweep of the park canopy from south to north. Featuring bespoke interiors by Yabu Pushelberg, every corner is executed with tailored luxury.\n\nThe lower level features a grand corner living salon, library with custom millwork, and open formal dining room. Upstairs, the master sanctuary features direct park vistas, motorized privacy drapes, and an en-suite bathroom clad in honed Fior di Bosco marble.",
@@ -503,10 +503,10 @@ export const properties = [
     featured: true,
     architect: "Kappe Architects",
     images: [
-      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=80",
+      "https://i.ibb.co.com/rKw5K042/pexels-cmoon-12558958.jpg",
+      "https://i.ibb.co.com/CCB38jw/pexels-real-estate-4k-719913841-36023384.jpg",
+      "https://i.ibb.co.com/xSSFR4Jp/pexels-wiki15-canton-598594475-28681145.jpg",
+      "https://i.ibb.co.com/zhm2VnWf/pexels-shaza-jocarlos-841367558-39017620.jpg",
     ],
     description:
       "Perched on a quiet cul-de-sac in the coveted Bird Streets above the Sunset Strip, this modern glass pavilion represents quintessential California architecture. Cantilevered terraces stretch outward toward the Pacific Ocean and Downtown skyline.\n\nInside, an open floor plan centers around a dramatic two-story glass atrium with a mature Japanese bonsai garden. A glass-walled subterranean wine cellar, wellness sanctuary, and infinity pool with underwater viewing portholes create a world-class lifestyle sanctuary.",
