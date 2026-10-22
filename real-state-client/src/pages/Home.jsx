@@ -1,14 +1,46 @@
-import { useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import { ArrowRight, ShieldCheck, Compass, Building2 } from "lucide-react";
 import SectionHeading from "../components/SectionHeading";
 import PropertyCard from "../components/PropertyCard";
 import PropertySearch from "../components/PropertySearch";
-import { getFeaturedProperties } from "../data/properties";
+import Loader from "../shared/Loader";
 import { siteConfig } from "../data/siteConfig";
+import useAxios from "../hooks/useAxios";
 
 const Home = () => {
-  const featuredProperties = useMemo(() => getFeaturedProperties(), []);
+  const [featuredProperties, setFeaturedProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const axiosInstance = useAxios();
+
+  useEffect(() => {
+    let isMounted = true;
+    axiosInstance
+      .get("/properties")
+      .then((res) => {
+        if (isMounted) {
+          const data = res.data;
+          if (Array.isArray(data) && data.length > 0) {
+            const featured = data.filter((p) => p.featured);
+            setFeaturedProperties(featured.length > 0 ? featured : data.slice(0, 6));
+          } else {
+            setFeaturedProperties([]);
+          }
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.warn("Backend error fetching properties:", err.message);
+        if (isMounted) {
+          setFeaturedProperties([]);
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [axiosInstance]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -87,15 +119,21 @@ const Home = () => {
         </div>
 
         {/* Featured Properties Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProperties.slice(0, 6).map((property, idx) => (
-            <PropertyCard
-              key={property.id}
-              property={property}
-              priority={idx < 3}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="py-16 flex items-center justify-center">
+            <Loader />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProperties.slice(0, 6).map((property, idx) => (
+              <PropertyCard
+                key={property.id || property._id}
+                property={property}
+                priority={idx < 3}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Mobile View All Button */}
         <div className="mt-10 text-center md:hidden">

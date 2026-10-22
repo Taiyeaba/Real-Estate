@@ -46,18 +46,23 @@ export const SORT_OPTIONS = [
   { label: "Newest Addition", value: "newest" },
 ];
 
+export const ALL_PRICE_RANGES = [
+  { label: "Any Budget", min: 0, max: Infinity },
+  { label: "Rentals (< $50k/mo)", min: 0, max: 100000 },
+  { label: "Under $20M", min: 100000, max: 20000000 },
+  { label: "$20M - $30M", min: 20000000, max: 30000000 },
+  { label: "$30M+", min: 30000000, max: Infinity },
+];
+
 export const BUY_PRICE_RANGES = [
   { label: "Any Price", min: 0, max: Infinity },
-  { label: "Under $5M", min: 0, max: 5000000 },
-  { label: "$5M - $10M", min: 5000000, max: 10000000 },
-  { label: "$10M - $20M", min: 10000000, max: 20000000 },
-  { label: "$20M+", min: 20000000, max: Infinity },
+  { label: "Under $20M", min: 0, max: 20000000 },
+  { label: "$20M - $30M", min: 20000000, max: 30000000 },
+  { label: "$30M+", min: 30000000, max: Infinity },
 ];
 
 export const RENT_PRICE_RANGES = [
-  { label: "Any Price", min: 0, max: Infinity },
-  { label: "Under $15,000/mo", min: 0, max: 15000 },
-  { label: "$15,000 - $30,000/mo", min: 15000, max: 30000 },
-  { label: "$30,000 - $50,000/mo", min: 30000, max: 50000 },
-  { label: "$50,000+/mo", min: 50000, max: Infinity },
+  { label: "Any Rent", min: 0, max: Infinity },
+  { label: "Under $40,000/mo", min: 0, max: 40000 },
+  { label: "$40,000+/mo", min: 40000, max: Infinity },
 ];

@@ -17,7 +17,7 @@ const PropertyCard = ({ property, priority = false }) => {
     <div className="group relative flex flex-col bg-white rounded-xl overflow-hidden border border-[#E4E1D9] shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
       {/* Property Image Container */}
       <Link
-        to={`/properties/${property.id}`}
+        to={`/properties/${property.id || property.slug || property._id}`}
         className="relative block aspect-[16/11] overflow-hidden bg-slate-100"
       >
         {/* Skeleton loader placeholder while image loads */}
@@ -86,7 +86,7 @@ const PropertyCard = ({ property, priority = false }) => {
 
         {/* Title */}
         <h3 className="font-serif text-lg font-semibold text-[#173D3B] line-clamp-1 group-hover:text-[#B87556] transition-colors mb-2">
-          <Link to={`/properties/${property.id}`}>{property.title}</Link>
+          <Link to={`/properties/${property.id || property.slug || property._id}`}>{property.title}</Link>
         </h3>
 
         {/* Tagline / short description */}
@@ -134,7 +134,7 @@ const PropertyCard = ({ property, priority = false }) => {
           </span>
 
           <Link
-            to={`/properties/${property.id}`}
+            to={`/properties/${property.id || property.slug || property._id}`}
             className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-[#173D3B] group-hover:text-[#B87556] transition-colors"
           >
             <span>View Residence</span>

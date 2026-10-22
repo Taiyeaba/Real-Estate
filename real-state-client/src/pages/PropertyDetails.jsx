@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link } from "react-router";
 import {
   ArrowLeft,
@@ -20,27 +20,75 @@ import PropertyGallery from "../components/PropertyGallery";
 import PropertyInquiryForm from "../components/PropertyInquiryForm";
 import PropertyCard from "../components/PropertyCard";
 import SectionHeading from "../components/SectionHeading";
-import { getPropertyById, getAllProperties } from "../data/properties";
+import Loader from "../shared/Loader";
 import { siteConfig } from "../data/siteConfig";
+import useAxios from "../hooks/useAxios";
 
 const PropertyDetails = () => {
   const { id } = useParams();
+  const [property, setProperty] = useState(null);
+  const [allProperties, setAllProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const axiosInstance = useAxios();
 
-  const property = useMemo(() => {
-    return getPropertyById(id);
-  }, [id]);
+  // Fetch property and related properties from MongoDB
+  useEffect(() => {
+    let isMounted = true;
 
-  // Similar properties recommendation
+    // Fetch individual property
+    axiosInstance
+      .get(`/properties/${id}`)
+      .then((res) => {
+        if (isMounted) {
+          setProperty(res.data);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.warn("Backend error fetching property:", err.message);
+        if (isMounted) {
+          setProperty(null);
+          setLoading(false);
+        }
+      });
+
+    // Fetch collection for recommendations
+    axiosInstance
+      .get("/properties")
+      .then((res) => {
+        if (isMounted && Array.isArray(res.data)) {
+          setAllProperties(res.data);
+        }
+      })
+      .catch(() => {
+        if (isMounted) setAllProperties([]);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [id, axiosInstance]);
+
+  // Similar properties recommendation from dynamic MongoDB dataset
   const similarProperties = useMemo(() => {
     if (!property) return [];
-    return getAllProperties()
+    return allProperties
       .filter(
         (p) =>
-          p.id !== property.id &&
+          (p.id !== property.id && p._id !== property._id) &&
           (p.propertyType === property.propertyType || p.listingType === property.listingType)
       )
       .slice(0, 3);
-  }, [property]);
+  }, [property, allProperties]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
 
   // Invalid ID graceful fallback
   if (!property) {

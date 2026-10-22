@@ -4,6 +4,7 @@ import { Search, MapPin, Home, DollarSign, SlidersHorizontal } from "lucide-reac
 import {
   PROPERTY_TYPES,
   CITIES,
+  ALL_PRICE_RANGES,
   BUY_PRICE_RANGES,
   RENT_PRICE_RANGES,
 } from "../data/propertyOptions";
@@ -11,21 +12,25 @@ import {
 const PropertySearch = ({ className = "" }) => {
   const navigate = useNavigate();
 
-  const [listingType, setListingType] = useState("Buy");
+  const [listingType, setListingType] = useState("all");
   const [city, setCity] = useState("all");
   const [propertyType, setPropertyType] = useState("all");
   const [priceRangeIndex, setPriceRangeIndex] = useState("0");
   const [searchQuery, setSearchQuery] = useState("");
 
   const currentPriceRanges =
-    listingType === "Rent" ? RENT_PRICE_RANGES : BUY_PRICE_RANGES;
+    listingType === "Rent"
+      ? RENT_PRICE_RANGES
+      : listingType === "Buy"
+      ? BUY_PRICE_RANGES
+      : ALL_PRICE_RANGES;
 
   const handleSearch = (e) => {
     e.preventDefault();
 
     const params = new URLSearchParams();
 
-    if (listingType && listingType !== "All Statuses") {
+    if (listingType && listingType !== "all" && listingType !== "All Statuses") {
       params.set("listingType", listingType);
     }
     if (city && city !== "all" && city !== "All Locations") {
@@ -39,36 +44,51 @@ const PropertySearch = ({ className = "" }) => {
     }
 
     const selectedRange = currentPriceRanges[parseInt(priceRangeIndex, 10)] || currentPriceRanges[0];
-    if (selectedRange.min > 0) {
+    if (selectedRange && selectedRange.min > 0) {
       params.set("minPrice", selectedRange.min.toString());
     }
-    if (selectedRange.max && selectedRange.max !== Infinity) {
+    if (selectedRange && selectedRange.max && selectedRange.max !== Infinity) {
       params.set("maxPrice", selectedRange.max.toString());
     }
 
     navigate(`/properties?${params.toString()}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div
       className={`w-full max-w-5xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[#E4E1D9] p-4 sm:p-6 transition-all ${className}`}
     >
-      {/* Top Tabs: Buy / Rent Switch */}
+      {/* Top Tabs: All / Buy / Rent Switch */}
       <div className="flex items-center justify-between mb-4 border-b border-[#E4E1D9] pb-3">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setListingType("all");
+              setPriceRangeIndex("0");
+            }}
+            className={`px-3.5 sm:px-5 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all ${
+              listingType === "all"
+                ? "bg-[#173D3B] text-white shadow-sm"
+                : "text-[#6B7280] hover:text-[#173D3B] hover:bg-[#F7F5EF]"
+            }`}
+          >
+            All Portfolio
+          </button>
           <button
             type="button"
             onClick={() => {
               setListingType("Buy");
               setPriceRangeIndex("0");
             }}
-            className={`px-5 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all ${
+            className={`px-3.5 sm:px-5 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all ${
               listingType === "Buy"
                 ? "bg-[#173D3B] text-white shadow-sm"
                 : "text-[#6B7280] hover:text-[#173D3B] hover:bg-[#F7F5EF]"
             }`}
           >
-            Buy A Residence
+            Buy
           </button>
           <button
             type="button"
@@ -76,19 +96,19 @@ const PropertySearch = ({ className = "" }) => {
               setListingType("Rent");
               setPriceRangeIndex("0");
             }}
-            className={`px-5 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all ${
+            className={`px-3.5 sm:px-5 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all ${
               listingType === "Rent"
                 ? "bg-[#173D3B] text-white shadow-sm"
                 : "text-[#6B7280] hover:text-[#173D3B] hover:bg-[#F7F5EF]"
             }`}
           >
-            Luxury Rental
+            Rent
           </button>
         </div>
 
         <span className="hidden sm:inline-flex text-xs text-[#6B7280] font-medium items-center gap-1">
           <SlidersHorizontal className="w-3.5 h-3.5 text-[#B87556]" />
-          Direct Portfolio Access
+          Instant Portfolio Search
         </span>
       </div>
 

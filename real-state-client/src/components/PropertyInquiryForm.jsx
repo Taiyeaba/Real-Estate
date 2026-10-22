@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { CheckCircle2, Send, ShieldCheck, Calendar, Phone, Mail, User } from "lucide-react";
+import useAxios from "../hooks/useAxios";
 
 const PropertyInquiryForm = ({ property, className = "" }) => {
+  const axiosInstance = useAxios();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -9,7 +11,7 @@ const PropertyInquiryForm = ({ property, className = "" }) => {
     tourDate: "",
     inquiryType: "Private Buyer",
     message: property
-      ? `I am interested in scheduling a private showing for ${property.title} (Ref: ${property.id}). Please provide further acquisition materials.`
+      ? `I am interested in scheduling a private showing for ${property.title} (Ref: ${property.id || property._id}). Please provide further acquisition materials.`
       : "I would like to consult with an advisor regarding your current real estate portfolio.",
   });
 
@@ -45,17 +47,24 @@ const PropertyInquiryForm = ({ property, className = "" }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setSubmitting(true);
 
-    // Client-side simulation of inquiry processing
-    setTimeout(() => {
+    try {
+      await axiosInstance.post("/inquiries", {
+        propertyId: property ? (property.id || property._id) : "general",
+        propertyTitle: property ? property.title : "General Inquiry",
+        ...formData,
+      });
+    } catch (err) {
+      console.warn("Could not save inquiry to server:", err);
+    } finally {
       setSubmitting(false);
       setIsSubmitted(true);
-    }, 600);
+    }
   };
 
   const handleReset = () => {

@@ -1,12 +1,44 @@
-import { useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSearchParams } from "react-router";
 import SectionHeading from "../components/SectionHeading";
 import PropertyFilters from "../components/PropertyFilters";
 import PropertyGrid from "../components/PropertyGrid";
-import { properties, filterProperties } from "../data/properties";
+import Loader from "../shared/Loader";
+import { filterProperties } from "../data/properties";
+import useAxios from "../hooks/useAxios";
 
 const Properties = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
+  const axiosInstance = useAxios();
+
+  // Fetch properties from MongoDB via Express API
+  const loadProperties = useCallback(() => {
+    axiosInstance
+      .get("/properties")
+      .then((res) => {
+        setProperties(Array.isArray(res.data) ? res.data : []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Backend API connection error:", err);
+        setFetchError(err.message || "Failed to reach backend server on port 3000");
+        setProperties([]);
+        setLoading(false);
+      });
+  }, [axiosInstance]);
+
+  const handleRetry = () => {
+    setLoading(true);
+    setFetchError(null);
+    loadProperties();
+  };
+
+  useEffect(() => {
+    loadProperties();
+  }, [loadProperties]);
 
   // Extract filters from URL query parameters
   const currentFilters = useMemo(() => {
@@ -22,10 +54,10 @@ const Properties = () => {
     };
   }, [searchParams]);
 
-  // Execute filtering using centralized pure helper
+  // Execute filtering using dynamic data from MongoDB
   const filteredList = useMemo(() => {
-    return filterProperties(currentFilters);
-  }, [currentFilters]);
+    return filterProperties(currentFilters, properties);
+  }, [currentFilters, properties]);
 
   // Handler to update a specific filter and synchronize with URL search params
   const handleFilterChange = (key, value) => {
@@ -69,6 +101,17 @@ const Properties = () => {
       } else {
         nextParams.delete("sortBy");
       }
+    } else if (key === "priceRange") {
+      if (value && typeof value === "object") {
+        if (value.min > 0) nextParams.set("minPrice", value.min.toString());
+        else nextParams.delete("minPrice");
+
+        if (value.max && value.max !== Infinity) nextParams.set("maxPrice", value.max.toString());
+        else nextParams.delete("maxPrice");
+      } else {
+        nextParams.delete("minPrice");
+        nextParams.delete("maxPrice");
+      }
     } else if (key === "minPrice") {
       if (Number(value) > 0) {
         nextParams.set("minPrice", value.toString());
@@ -91,6 +134,14 @@ const Properties = () => {
     setSearchParams(new URLSearchParams(), { replace: true });
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
       {/* Page Header */}
@@ -102,6 +153,24 @@ const Properties = () => {
           description="Browse our curated collection of architectural homes, waterfront compounds, and skyline penthouses available for acquisition and luxury lease."
         />
       </div>
+
+      {/* Backend Offline Warning Banner if API fails */}
+      {fetchError && (
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+          <div>
+            <p className="font-semibold text-sm">Cannot reach Backend Server on Port 3000</p>
+            <p className="text-xs text-amber-700 mt-1">
+              Make sure your Node server is running in a terminal: <code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono text-[11px]">cd real-estate-server && node index.js</code>
+            </p>
+          </div>
+          <button
+            onClick={handleRetry}
+            className="px-4 py-2 rounded-lg bg-[#173D3B] text-white text-xs font-semibold hover:bg-[#B87556] transition-colors self-start sm:self-center cursor-pointer shadow-sm"
+          >
+            Retry Connection
+          </button>
+        </div>
+      )}
 
       {/* Interactive Filters Panel */}
       <PropertyFilters

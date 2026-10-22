@@ -39,7 +39,7 @@ const PropertyGrid = ({ properties = [], onReset, emptyMessage, columns = 3 }) =
     <div className={`grid gap-6 sm:gap-8 ${gridColsClass}`}>
       {properties.map((property, idx) => (
         <PropertyCard
-          key={property.id}
+          key={property.id || property._id || idx}
           property={property}
           priority={idx < 3}
         />

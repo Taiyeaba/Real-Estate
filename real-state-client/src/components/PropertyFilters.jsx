@@ -6,6 +6,8 @@ import {
   Tag,
   Bed,
   ArrowUpDown,
+  DollarSign,
+  X,
 } from "lucide-react";
 import {
   PROPERTY_TYPES,
@@ -13,6 +15,9 @@ import {
   CITIES,
   BEDROOM_OPTIONS,
   SORT_OPTIONS,
+  ALL_PRICE_RANGES,
+  BUY_PRICE_RANGES,
+  RENT_PRICE_RANGES,
 } from "../data/propertyOptions";
 
 const PropertyFilters = ({
@@ -22,6 +27,20 @@ const PropertyFilters = ({
   totalResults,
   totalCount,
 }) => {
+  const currentPriceRanges =
+    filters.listingType === "Rent"
+      ? RENT_PRICE_RANGES
+      : filters.listingType === "Buy"
+      ? BUY_PRICE_RANGES
+      : ALL_PRICE_RANGES;
+
+  // Determine current active price range index
+  const activePriceIndex = currentPriceRanges.findIndex(
+    (r) =>
+      (r.min === filters.minPrice || (!filters.minPrice && r.min === 0)) &&
+      (r.max === filters.maxPrice || (!filters.maxPrice && r.max === Infinity))
+  );
+
   const isFiltered =
     filters.search ||
     filters.listingType !== "all" ||
@@ -29,8 +48,17 @@ const PropertyFilters = ({
     filters.city !== "all" ||
     filters.bedrooms !== "all" ||
     filters.minPrice > 0 ||
-    filters.maxPrice < Infinity ||
+    (filters.maxPrice && filters.maxPrice < Infinity) ||
     filters.sortBy !== "featured";
+
+  const handlePriceChange = (e) => {
+    const idx = parseInt(e.target.value, 10);
+    const range = currentPriceRanges[idx] || currentPriceRanges[0];
+    onFilterChange("priceRange", {
+      min: range.min || 0,
+      max: range.max || Infinity,
+    });
+  };
 
   return (
     <div className="bg-white rounded-2xl border border-[#E4E1D9] shadow-sm p-4 sm:p-6 mb-8">
@@ -44,14 +72,14 @@ const PropertyFilters = ({
             placeholder="Search by residence title, neighborhood, architect..."
             value={filters.search}
             onChange={(e) => onFilterChange("search", e.target.value)}
-            className="w-full bg-[#F7F5EF] border border-[#E4E1D9] rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#303B3A] placeholder-[#6B7280] focus:outline-none focus:ring-1 focus:ring-[#B87556] focus:border-[#B87556] transition-colors"
+            className="w-full bg-[#F7F5EF] border border-[#E4E1D9] rounded-xl pl-10 pr-10 py-2.5 text-sm text-[#303B3A] placeholder-[#6B7280] focus:outline-none focus:ring-1 focus:ring-[#B87556] focus:border-[#B87556] transition-colors"
           />
           {filters.search && (
             <button
               onClick={() => onFilterChange("search", "")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] hover:text-[#173D3B]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#6B7280] hover:text-[#173D3B] p-1"
             >
-              Clear
+              <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
@@ -68,22 +96,103 @@ const PropertyFilters = ({
           {isFiltered && (
             <button
               onClick={onReset}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#6B7280] hover:text-[#173D3B] hover:underline cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#B87556] hover:text-[#173D3B] hover:underline cursor-pointer"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-[#B87556]" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset Filters</span>
             </button>
           )}
         </div>
       </div>
 
+      {/* Active Filter Chips / Pills */}
+      {isFiltered && (
+        <div className="flex items-center gap-2 flex-wrap pt-4 pb-1 border-b border-[#E4E1D9]/60">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#6B7280] mr-1">
+            Active:
+          </span>
+
+          {filters.search && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[#F7F5EF] border border-[#E4E1D9] text-[#173D3B] font-medium">
+              &ldquo;{filters.search}&rdquo;
+              <button
+                onClick={() => onFilterChange("search", "")}
+                className="hover:text-[#B87556]"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+
+          {filters.listingType && filters.listingType !== "all" && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[#F7F5EF] border border-[#E4E1D9] text-[#173D3B] font-medium">
+              Status: {filters.listingType}
+              <button
+                onClick={() => onFilterChange("listingType", "all")}
+                className="hover:text-[#B87556]"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+
+          {filters.propertyType && filters.propertyType !== "all" && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[#F7F5EF] border border-[#E4E1D9] text-[#173D3B] font-medium">
+              Type: {filters.propertyType}
+              <button
+                onClick={() => onFilterChange("propertyType", "all")}
+                className="hover:text-[#B87556]"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+
+          {filters.city && filters.city !== "all" && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[#F7F5EF] border border-[#E4E1D9] text-[#173D3B] font-medium">
+              Location: {filters.city}
+              <button
+                onClick={() => onFilterChange("city", "all")}
+                className="hover:text-[#B87556]"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+
+          {filters.bedrooms && filters.bedrooms !== "all" && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[#F7F5EF] border border-[#E4E1D9] text-[#173D3B] font-medium">
+              {filters.bedrooms}+ Bedrooms
+              <button
+                onClick={() => onFilterChange("bedrooms", "all")}
+                className="hover:text-[#B87556]"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+
+          {(filters.minPrice > 0 || (filters.maxPrice && filters.maxPrice < Infinity)) && (
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs bg-[#F7F5EF] border border-[#E4E1D9] text-[#173D3B] font-medium">
+              Budget Filtered
+              <button
+                onClick={() => onFilterChange("priceRange", { min: 0, max: Infinity })}
+                className="hover:text-[#B87556]"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+        </div>
+      )}
+
       {/* Filter Controls Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 pt-5">
-        {/* Filter: Listing Type */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5 pt-5">
+        {/* Filter 1: Listing Type */}
         <div className="flex flex-col">
           <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1">
             <Tag className="w-3.5 h-3.5 text-[#B87556]" />
-            Listing Status
+            Status
           </label>
           <select
             value={filters.listingType}
@@ -98,7 +207,7 @@ const PropertyFilters = ({
           </select>
         </div>
 
-        {/* Filter: Property Type */}
+        {/* Filter 2: Property Type */}
         <div className="flex flex-col">
           <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1">
             <Home className="w-3.5 h-3.5 text-[#B87556]" />
@@ -117,7 +226,7 @@ const PropertyFilters = ({
           </select>
         </div>
 
-        {/* Filter: Location */}
+        {/* Filter 3: Location */}
         <div className="flex flex-col">
           <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1">
             <MapPin className="w-3.5 h-3.5 text-[#B87556]" />
@@ -136,7 +245,26 @@ const PropertyFilters = ({
           </select>
         </div>
 
-        {/* Filter: Bedrooms */}
+        {/* Filter 4: Price / Budget */}
+        <div className="flex flex-col">
+          <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1">
+            <DollarSign className="w-3.5 h-3.5 text-[#B87556]" />
+            Budget Range
+          </label>
+          <select
+            value={activePriceIndex >= 0 ? activePriceIndex : "0"}
+            onChange={handlePriceChange}
+            className="w-full bg-[#F7F5EF] border border-[#E4E1D9] rounded-lg px-3 py-2 text-xs sm:text-sm text-[#303B3A] focus:outline-none focus:ring-1 focus:ring-[#B87556] cursor-pointer"
+          >
+            {currentPriceRanges.map((range, idx) => (
+              <option key={range.label} value={idx}>
+                {range.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Filter 5: Bedrooms */}
         <div className="flex flex-col">
           <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1">
             <Bed className="w-3.5 h-3.5 text-[#B87556]" />
@@ -155,7 +283,7 @@ const PropertyFilters = ({
           </select>
         </div>
 
-        {/* Sort By */}
+        {/* Filter 6: Sort By */}
         <div className="flex flex-col">
           <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1">
             <ArrowUpDown className="w-3.5 h-3.5 text-[#B87556]" />

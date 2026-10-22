@@ -11,8 +11,10 @@ import {
 } from "lucide-react";
 import SectionHeading from "../components/SectionHeading";
 import { siteConfig } from "../data/siteConfig";
+import useAxios from "../hooks/useAxios";
 
 const Contact = () => {
+  const axiosInstance = useAxios();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -50,15 +52,19 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await axiosInstance.post("/contact", formData);
+    } catch (err) {
+      console.warn("Could not save contact message to server:", err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 600);
+    }
   };
 
   const handleReset = () => {
