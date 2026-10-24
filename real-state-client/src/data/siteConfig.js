@@ -120,7 +120,7 @@ export const siteConfig = {
       name: "Architectural Villas",
       type: "Villa",
       tagline: "Private sanctuaries with seamless indoor-outdoor living",
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+      image: "https://i.ibb.co.com/RGVJVRzW/n-cube-villa-cubism-architects-and-interiors-india-01.jpg",
       countText: "Exclusive Estates",
     },
     {
@@ -128,7 +128,7 @@ export const siteConfig = {
       name: "Skyline Penthouses",
       type: "Penthouse",
       tagline: "Elevated living with panoramic urban and coastal horizons",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+      image: "https://i.ibb.co.com/s97QFVhH/pexels-fhstudio-13201480.jpg",
       countText: "Crown Residences",
     },
     {
@@ -136,7 +136,7 @@ export const siteConfig = {
       name: "Luxury Residences",
       type: "Apartment",
       tagline: "Refined city apartments in premier cultural districts",
-      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80",
+      image: "https://i.ibb.co.com/zhkwQb38/pexels-gerdiephotography-g-2148876750-34909558.jpg",
       countText: "Prime City Living",
     },
     {
@@ -144,7 +144,7 @@ export const siteConfig = {
       name: "Historic Townhomes",
       type: "Townhouse",
       tagline: "Classic facades harboring modern bespoke interiors",
-      image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+      image: "https://i.ibb.co.com/rKw5K042/pexels-cmoon-12558958.jpg",
       countText: "Heritage Properties",
     },
   ],

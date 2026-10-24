@@ -1,15 +1,51 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router";
-import { Menu, X, ArrowRight, Phone, Compass } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import {
+  Menu,
+  X,
+  ArrowRight,
+  Phone,
+  Compass,
+  ChevronDown,
+  Building2,
+  CheckCircle2,
+} from "lucide-react";
 import ProLogo from "./ProLogo";
 import { siteConfig } from "../data/siteConfig";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Subtle scroll listener for elevated shadow without layout shifts
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close mobile drawer on route change
   const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  const handleSectionScroll = (sectionId) => {
+    if (location.pathname === "/") {
+      const elem = document.getElementById(sectionId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate(`/#${sectionId}`);
+    }
+    setDropdownOpen(false);
+    setMobileMenuOpen(false);
+  };
 
   const navItems = [
     { label: "Home", to: "/" },
@@ -31,10 +67,27 @@ const Navbar = () => {
     return location.pathname === to;
   };
 
+  const isHome = location.pathname === "/";
+  const isTransparent = isHome && !scrolled;
+
   return (
-    <header className="sticky top-0 z-50 bg-[#F7F5EF]/95 backdrop-blur-md border-b border-[#E4E1D9] transition-all">
+    <header
+      className={`transition-all duration-500 z-50 ${
+        isTransparent
+          ? "absolute top-0 inset-x-0 bg-gradient-to-b from-black/80 via-black/30 to-transparent border-b border-white/10 text-white"
+          : scrolled
+          ? "sticky top-0 bg-[#F7F5EF]/98 shadow-md border-b border-[#E4E1D9]/90 backdrop-blur-lg text-[#303B3A]"
+          : "sticky top-0 bg-[#F7F5EF]/95 shadow-none border-b border-[#E4E1D9] backdrop-blur-md text-[#303B3A]"
+      }`}
+    >
       {/* Upper subtle contact bar for desktop */}
-      <div className="hidden lg:block bg-[#173D3B] text-white/80 text-[11px] py-1.5 px-6 border-b border-white/10">
+      <div
+        className={`hidden lg:block text-[11px] py-1.5 px-6 border-b transition-colors duration-300 ${
+          isTransparent
+            ? "bg-black/30 text-white/80 border-white/10"
+            : "bg-[#173D3B] text-white/80 border-white/10"
+        }`}
+      >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
@@ -61,19 +114,113 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <ProLogo variant="dark" />
+            <ProLogo variant={isTransparent ? "light" : "dark"} />
           </div>
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navItems.map((item) => {
               const active = isLinkActive(item.to);
+              const isProperties = item.label === "Properties";
+
+              if (isProperties) {
+                return (
+                  <div
+                    key={item.label}
+                    className="relative group"
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
+                  >
+                    <div className="flex items-center">
+                      <Link
+                        to={item.to}
+                        className={`px-3 py-2 text-xs uppercase tracking-widest font-semibold transition-all relative flex items-center gap-1.5 cursor-pointer ${
+                          isTransparent
+                            ? active
+                              ? "text-white font-bold"
+                              : "text-white/80 hover:text-[#B87556]"
+                            : active
+                            ? "text-[#173D3B] font-bold"
+                            : "text-[#6B7280] hover:text-[#173D3B]"
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" />
+                        {active && (
+                          <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#B87556]" />
+                        )}
+                      </Link>
+                    </div>
+
+                    {/* Luxury Dropdown Container */}
+                    <div
+                      className={`absolute left-0 top-full pt-2 w-56 transition-all duration-300 z-50 ${
+                        dropdownOpen
+                          ? "opacity-100 visible translate-y-0"
+                          : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                      }`}
+                    >
+                      <div
+                        className={`rounded-2xl p-2 shadow-2xl border backdrop-blur-xl ${
+                          isTransparent
+                            ? "bg-[#071312]/95 border-white/15 text-white"
+                            : "bg-[#F7F5EF]/98 border-[#E4E1D9] text-[#173D3B]"
+                        }`}
+                      >
+                        <Link
+                          to="/properties"
+                          onClick={() => setDropdownOpen(false)}
+                          className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors ${
+                            isTransparent
+                              ? "hover:bg-white/10 text-white"
+                              : "hover:bg-white text-[#173D3B] hover:text-[#B87556]"
+                          }`}
+                        >
+                          <Building2 className="w-3.5 h-3.5 text-[#B87556]" />
+                          <span>All Properties</span>
+                        </Link>
+
+                        <button
+                          type="button"
+                          onClick={() => handleSectionScroll("ongoing-projects")}
+                          className={`w-full text-left flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer ${
+                            isTransparent
+                              ? "hover:bg-white/10 text-white"
+                              : "hover:bg-white text-[#173D3B] hover:text-[#B87556]"
+                          }`}
+                        >
+                          <span className="w-2 h-2 rounded-full bg-[#B87556] animate-pulse" />
+                          <span>Ongoing Projects</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleSectionScroll("recent-completed")}
+                          className={`w-full text-left flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer ${
+                            isTransparent
+                              ? "hover:bg-white/10 text-white"
+                              : "hover:bg-white text-[#173D3B] hover:text-[#B87556]"
+                          }`}
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A46D]" />
+                          <span>Recent Completed</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={item.label}
                   to={item.to}
                   className={`px-3 py-2 text-xs uppercase tracking-widest font-semibold transition-all relative ${
-                    active
+                    isTransparent
+                      ? active
+                        ? "text-white font-bold"
+                        : "text-white/80 hover:text-[#B87556]"
+                      : active
                       ? "text-[#173D3B] font-bold"
                       : "text-[#6B7280] hover:text-[#173D3B]"
                   }`}
@@ -91,7 +238,11 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/properties"
-              className="inline-flex items-center gap-2 bg-[#173D3B] hover:bg-[#B87556] text-white px-5 py-2.5 rounded-lg text-xs uppercase tracking-widest font-semibold transition-all duration-200 shadow-sm hover:shadow cursor-pointer"
+              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs uppercase tracking-widest font-semibold transition-all duration-200 shadow-sm hover:shadow cursor-pointer ${
+                isTransparent
+                  ? "bg-[#B87556] hover:bg-[#A56346] text-white"
+                  : "bg-[#173D3B] hover:bg-[#B87556] text-white"
+              }`}
             >
               <span>Explore Properties</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -102,7 +253,11 @@ const Navbar = () => {
           <div className="flex md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-[#173D3B] hover:bg-black/5 focus:outline-none cursor-pointer"
+              className={`p-2 rounded-lg focus:outline-none cursor-pointer ${
+                isTransparent
+                  ? "text-white hover:bg-white/10"
+                  : "text-[#173D3B] hover:bg-black/5"
+              }`}
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
@@ -121,19 +276,42 @@ const Navbar = () => {
           <div className="flex flex-col space-y-1 pt-2">
             {navItems.map((item) => {
               const active = isLinkActive(item.to);
+              const isProperties = item.label === "Properties";
               return (
-                <Link
-                  key={item.label}
-                  to={item.to}
-                  onClick={closeMobileMenu}
-                  className={`block px-3 py-2.5 text-sm uppercase tracking-wider font-semibold rounded-lg transition-colors ${
-                    active
-                      ? "bg-[#173D3B] text-white"
-                      : "text-[#173D3B] hover:bg-black/5"
-                  }`}
-                >
-                  {item.label}
-                </Link>
+                <div key={item.label} className="flex flex-col">
+                  <Link
+                    to={item.to}
+                    onClick={closeMobileMenu}
+                    className={`block px-3 py-2.5 text-sm uppercase tracking-wider font-semibold rounded-lg transition-colors ${
+                      active
+                        ? "bg-[#173D3B] text-white"
+                        : "text-[#173D3B] hover:bg-black/5"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+
+                  {isProperties && (
+                    <div className="pl-4 pr-2 py-1 space-y-1 bg-black/5 rounded-lg my-1">
+                      <button
+                        type="button"
+                        onClick={() => handleSectionScroll("ongoing-projects")}
+                        className="w-full text-left flex items-center gap-2.5 px-3 py-2 text-xs uppercase tracking-wider font-semibold text-[#173D3B] hover:text-[#B87556] transition-colors cursor-pointer"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#B87556] animate-pulse" />
+                        <span>Ongoing Projects</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleSectionScroll("recent-completed")}
+                        className="w-full text-left flex items-center gap-2.5 px-3 py-2 text-xs uppercase tracking-wider font-semibold text-[#173D3B] hover:text-[#B87556] transition-colors cursor-pointer"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A46D]" />
+                        <span>Recent Completed</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>

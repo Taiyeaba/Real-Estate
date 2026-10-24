@@ -1,11 +1,45 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { MapPin, Phone, Mail, Clock, ArrowUpRight } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProLogo from "./ProLogo";
 import { siteConfig } from "../data/siteConfig";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const Footer = () => {
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        footerRef.current,
+        { opacity: 0.75, y: 15 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 95%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <footer className="bg-[#173D3B] text-white pt-16 pb-12 border-t border-[#B87556]/20">
+    <footer ref={footerRef} className="bg-[#173D3B] text-white pt-16 pb-12 border-t border-[#B87556]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Section: Brand + Links Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-white/10">

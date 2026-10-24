@@ -57,10 +57,10 @@ const PropertySearch = ({ className = "" }) => {
 
   return (
     <div
-      className={`w-full max-w-5xl mx-auto bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-[#E4E1D9] p-4 sm:p-6 transition-all ${className}`}
+      className={`w-full max-w-6xl mx-auto bg-[#081514]/85 backdrop-blur-2xl rounded-2xl border border-white/15 p-4 sm:p-5 shadow-[0_25px_60px_rgba(0,0,0,0.85)] text-white transition-all ${className}`}
     >
       {/* Top Tabs: All / Buy / Rent Switch */}
-      <div className="flex items-center justify-between mb-4 border-b border-[#E4E1D9] pb-3">
+      <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
         <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
@@ -68,13 +68,13 @@ const PropertySearch = ({ className = "" }) => {
               setListingType("all");
               setPriceRangeIndex("0");
             }}
-            className={`px-3.5 sm:px-5 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all ${
+            className={`px-3.5 sm:px-5 py-1.5 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all cursor-pointer ${
               listingType === "all"
-                ? "bg-[#173D3B] text-white shadow-sm"
-                : "text-[#6B7280] hover:text-[#173D3B] hover:bg-[#F7F5EF]"
+                ? "bg-[#B87556] text-white shadow-xs"
+                : "text-slate-300 hover:text-white hover:bg-white/10"
             }`}
           >
-            All Portfolio
+            All Portfolios
           </button>
           <button
             type="button"
@@ -82,10 +82,10 @@ const PropertySearch = ({ className = "" }) => {
               setListingType("Buy");
               setPriceRangeIndex("0");
             }}
-            className={`px-3.5 sm:px-5 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all ${
+            className={`px-3.5 sm:px-5 py-1.5 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all cursor-pointer ${
               listingType === "Buy"
-                ? "bg-[#173D3B] text-white shadow-sm"
-                : "text-[#6B7280] hover:text-[#173D3B] hover:bg-[#F7F5EF]"
+                ? "bg-[#B87556] text-white shadow-xs"
+                : "text-slate-300 hover:text-white hover:bg-white/10"
             }`}
           >
             Buy
@@ -96,19 +96,19 @@ const PropertySearch = ({ className = "" }) => {
               setListingType("Rent");
               setPriceRangeIndex("0");
             }}
-            className={`px-3.5 sm:px-5 py-2 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all ${
+            className={`px-3.5 sm:px-5 py-1.5 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all cursor-pointer ${
               listingType === "Rent"
-                ? "bg-[#173D3B] text-white shadow-sm"
-                : "text-[#6B7280] hover:text-[#173D3B] hover:bg-[#F7F5EF]"
+                ? "bg-[#B87556] text-white shadow-xs"
+                : "text-slate-300 hover:text-white hover:bg-white/10"
             }`}
           >
             Rent
           </button>
         </div>
 
-        <span className="hidden sm:inline-flex text-xs text-[#6B7280] font-medium items-center gap-1">
+        <span className="hidden sm:inline-flex text-[11px] font-mono tracking-wider text-[#E5D2B8] items-center gap-1.5">
           <SlidersHorizontal className="w-3.5 h-3.5 text-[#B87556]" />
-          Instant Portfolio Search
+          PORTFOLIO CURATION ENGINE
         </span>
       </div>
 
@@ -116,32 +116,32 @@ const PropertySearch = ({ className = "" }) => {
       <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
         {/* Field 1: Keyword search */}
         <div className="flex flex-col">
-          <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1.5">
+          <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#E5D2B8] mb-1.5 flex items-center gap-1.5">
             <Search className="w-3.5 h-3.5 text-[#B87556]" />
-            Keyword / Estate
+            Estate / Keyword
           </label>
           <input
             type="text"
-            placeholder="e.g. Bel-Air, Penthouse..."
+            placeholder="e.g. Bel-Air, Modernist..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#F7F5EF] border border-[#E4E1D9] rounded-lg px-3.5 py-2.5 text-sm text-[#303B3A] placeholder-[#6B7280] focus:outline-none focus:ring-1 focus:ring-[#B87556] focus:border-[#B87556] transition-colors"
+            className="w-full bg-black/40 hover:bg-black/60 focus:bg-black/70 border border-white/15 focus:border-[#C5A46D] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none transition-all"
           />
         </div>
 
         {/* Field 2: Location */}
         <div className="flex flex-col">
-          <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1.5">
+          <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#E5D2B8] mb-1.5 flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5 text-[#B87556]" />
             Location
           </label>
           <select
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="w-full bg-[#F7F5EF] border border-[#E4E1D9] rounded-lg px-3.5 py-2.5 text-sm text-[#303B3A] focus:outline-none focus:ring-1 focus:ring-[#B87556] focus:border-[#B87556] transition-colors cursor-pointer"
+            className="w-full appearance-none bg-black/40 hover:bg-black/60 focus:bg-black/70 border border-white/15 focus:border-[#C5A46D] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none transition-all cursor-pointer"
           >
             {CITIES.map((c) => (
-              <option key={c} value={c === "All Locations" ? "all" : c}>
+              <option key={c} value={c === "All Locations" ? "all" : c} className="bg-[#0A1312] text-white">
                 {c}
               </option>
             ))}
@@ -150,17 +150,17 @@ const PropertySearch = ({ className = "" }) => {
 
         {/* Field 3: Property Type */}
         <div className="flex flex-col">
-          <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1.5">
+          <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#E5D2B8] mb-1.5 flex items-center gap-1.5">
             <Home className="w-3.5 h-3.5 text-[#B87556]" />
             Property Type
           </label>
           <select
             value={propertyType}
             onChange={(e) => setPropertyType(e.target.value)}
-            className="w-full bg-[#F7F5EF] border border-[#E4E1D9] rounded-lg px-3.5 py-2.5 text-sm text-[#303B3A] focus:outline-none focus:ring-1 focus:ring-[#B87556] focus:border-[#B87556] transition-colors cursor-pointer"
+            className="w-full appearance-none bg-black/40 hover:bg-black/60 focus:bg-black/70 border border-white/15 focus:border-[#C5A46D] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none transition-all cursor-pointer"
           >
             {PROPERTY_TYPES.map((t) => (
-              <option key={t} value={t === "All Types" ? "all" : t}>
+              <option key={t} value={t === "All Types" ? "all" : t} className="bg-[#0A1312] text-white">
                 {t}
               </option>
             ))}
@@ -169,17 +169,17 @@ const PropertySearch = ({ className = "" }) => {
 
         {/* Field 4: Price Range */}
         <div className="flex flex-col">
-          <label className="text-[11px] uppercase tracking-wider font-semibold text-[#173D3B] mb-1.5 flex items-center gap-1.5">
+          <label className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#E5D2B8] mb-1.5 flex items-center gap-1.5">
             <DollarSign className="w-3.5 h-3.5 text-[#B87556]" />
-            Budget / Range
+            Valuation Range
           </label>
           <select
             value={priceRangeIndex}
             onChange={(e) => setPriceRangeIndex(e.target.value)}
-            className="w-full bg-[#F7F5EF] border border-[#E4E1D9] rounded-lg px-3.5 py-2.5 text-sm text-[#303B3A] focus:outline-none focus:ring-1 focus:ring-[#B87556] focus:border-[#B87556] transition-colors cursor-pointer"
+            className="w-full appearance-none bg-black/40 hover:bg-black/60 focus:bg-black/70 border border-white/15 focus:border-[#C5A46D] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none transition-all cursor-pointer"
           >
             {currentPriceRanges.map((range, index) => (
-              <option key={range.label} value={index}>
+              <option key={range.label} value={index} className="bg-[#0A1312] text-white">
                 {range.label}
               </option>
             ))}
@@ -190,10 +190,10 @@ const PropertySearch = ({ className = "" }) => {
         <div className="flex flex-col justify-end">
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center gap-2 bg-[#173D3B] hover:bg-[#B87556] text-white py-3 px-6 rounded-lg text-xs uppercase tracking-widest font-semibold transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none cursor-pointer"
+            className="w-full inline-flex items-center justify-center gap-2 bg-[#B87556] hover:bg-[#A56346] text-white py-2.5 sm:py-3 px-6 rounded-xl text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-md hover:shadow-xl focus:outline-none cursor-pointer"
           >
             <Search className="w-4 h-4" />
-            <span>Search Estates</span>
+            <span>Search Portfolio</span>
           </button>
         </div>
       </form>

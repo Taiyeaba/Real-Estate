@@ -1,11 +1,13 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router";
-import SectionHeading from "../components/SectionHeading";
+import gsap from "gsap";
 import PropertyFilters from "../components/PropertyFilters";
 import PropertyGrid from "../components/PropertyGrid";
 import Loader from "../shared/Loader";
 import { filterProperties } from "../data/properties";
 import useAxios from "../hooks/useAxios";
+import useSmoothScroll from "../hooks/useSmoothScroll";
+import { AlertCircle, RefreshCw } from "lucide-react";
 
 const Properties = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,6 +15,34 @@ const Properties = () => {
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
   const axiosInstance = useAxios();
+  const headerRef = useRef(null);
+
+  // Initialize Lenis smooth scroll synchronized with GSAP ScrollTrigger
+  useSmoothScroll();
+
+  // Entrance animation for luxury page header
+  useEffect(() => {
+    if (typeof window === "undefined" || !headerRef.current) return;
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mediaQuery.matches) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headerRef.current.querySelectorAll(".header-reveal"),
+        { opacity: 0, y: 25 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.12,
+          ease: "power2.out",
+          delay: 0.1,
+        }
+      );
+    }, headerRef);
+
+    return () => ctx.revert();
+  }, [loading]);
 
   // Fetch properties from MongoDB via Express API
   const loadProperties = useCallback(() => {
@@ -143,50 +173,72 @@ const Properties = () => {
   }
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-      {/* Page Header */}
-      <div className="mb-10 text-center sm:text-left">
-        <SectionHeading
-          align="left"
-          overline="Complete Portfolio"
-          title="Exceptional Estates & Residences"
-          description="Browse our curated collection of architectural homes, waterfront compounds, and skyline penthouses available for acquisition and luxury lease."
-        />
-      </div>
+    <div className="min-h-screen bg-[#F7F5EF] text-[#303B3A] relative overflow-hidden">
+      {/* Editorial Luxury Page Header */}
+      <section className="relative pt-14 pb-12 sm:pt-20 sm:pb-16 border-b border-[#E4E1D9] bg-gradient-to-b from-[#FCFAF5] to-[#F7F5EF] overflow-hidden">
+        <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-14 xl:px-20 text-center sm:text-left">
+          <div ref={headerRef} className="max-w-3xl">
+            {/* Eyebrow */}
+            <div className="header-reveal flex items-center justify-center sm:justify-start gap-2.5 mb-3.5">
+              <span className="w-8 h-[1.5px] bg-[#B87556]" />
+              <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#B87556]">
+                THE HAVENSTONE COLLECTION
+              </span>
+            </div>
 
-      {/* Backend Offline Warning Banner if API fails */}
-      {fetchError && (
-        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
-          <div>
-            <p className="font-semibold text-sm">Cannot reach Backend Server on Port 3000</p>
-            <p className="text-xs text-amber-700 mt-1">
-              Make sure your Node server is running in a terminal: <code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono text-[11px]">cd real-estate-server && node index.js</code>
+            {/* Heading */}
+            <h1 className="header-reveal font-serif italic text-3xl sm:text-5xl lg:text-[56px] text-[#173D3B] font-normal tracking-tight leading-[1.12]">
+              Exceptional Estates &amp; Residences
+            </h1>
+
+            {/* Description */}
+            <p className="header-reveal mt-4 text-sm sm:text-base text-[#555B57] font-light leading-relaxed max-w-2xl">
+              Browse our curated collection of architectural homes, waterfront compounds, and skyline penthouses available for acquisition and luxury lease.
             </p>
           </div>
-          <button
-            onClick={handleRetry}
-            className="px-4 py-2 rounded-lg bg-[#173D3B] text-white text-xs font-semibold hover:bg-[#B87556] transition-colors self-start sm:self-center cursor-pointer shadow-sm"
-          >
-            Retry Connection
-          </button>
         </div>
-      )}
+      </section>
 
-      {/* Interactive Filters Panel */}
-      <PropertyFilters
-        filters={currentFilters}
-        onFilterChange={handleFilterChange}
-        onReset={handleResetFilters}
-        totalResults={filteredList.length}
-        totalCount={properties.length}
-      />
+      {/* Main Content Area (Full page width) */}
+      <div className="py-10 sm:py-14 px-4 sm:px-8 lg:px-14 xl:px-20 max-w-[1720px] mx-auto w-full relative z-10">
+        {/* Backend Offline Warning Banner if API fails */}
+        {fetchError && (
+          <div className="mb-8 p-5 sm:p-6 rounded-2xl bg-amber-50/90 border border-amber-200 text-[#173D3B] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-[#B87556] shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-sm text-[#173D3B]">Cannot reach Backend Server on Port 3000</p>
+                <p className="text-xs text-amber-800/80 mt-1">
+                  Make sure your Node server is running in a terminal: <code className="bg-amber-100/80 text-[#173D3B] px-1.5 py-0.5 rounded font-mono text-[11px]">cd real-estate-server && node index.js</code>
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={handleRetry}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#173D3B] text-white text-xs font-semibold hover:bg-[#B87556] transition-colors self-start sm:self-center cursor-pointer shadow-sm"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Retry Connection</span>
+            </button>
+          </div>
+        )}
 
-      {/* Results Grid */}
-      <PropertyGrid
-        properties={filteredList}
-        onReset={handleResetFilters}
-        emptyMessage="No properties in our portfolio match the selected combination of criteria. Try adjusting your filters, location, or budget parameters."
-      />
+        {/* Interactive Filters Panel */}
+        <PropertyFilters
+          filters={currentFilters}
+          onFilterChange={handleFilterChange}
+          onReset={handleResetFilters}
+          totalResults={filteredList.length}
+          totalCount={properties.length}
+        />
+
+        {/* Results Grid - Property Showcase */}
+        <PropertyGrid
+          properties={filteredList}
+          onReset={handleResetFilters}
+          emptyMessage="No properties in our portfolio match the selected combination of criteria. Try adjusting your filters, location, or budget parameters."
+        />
+      </div>
     </div>
   );
 };
