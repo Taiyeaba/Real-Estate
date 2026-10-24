@@ -67,27 +67,16 @@ const Navbar = () => {
     return location.pathname === to;
   };
 
-  const isHome = location.pathname === "/";
-  const isTransparent = isHome && !scrolled;
-
   return (
     <header
-      className={`transition-all duration-500 z-50 ${
-        isTransparent
-          ? "absolute top-0 inset-x-0 bg-gradient-to-b from-black/80 via-black/30 to-transparent border-b border-white/10 text-white"
-          : scrolled
-          ? "sticky top-0 bg-[#F7F5EF]/98 shadow-md border-b border-[#E4E1D9]/90 backdrop-blur-lg text-[#303B3A]"
-          : "sticky top-0 bg-[#F7F5EF]/95 shadow-none border-b border-[#E4E1D9] backdrop-blur-md text-[#303B3A]"
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#F7F5EF]/98 shadow-[0_4px_25px_rgba(23,61,59,0.06)] border-b border-[#E4E1D9] backdrop-blur-md text-[#303B3A]"
+          : "bg-[#F7F5EF]/95 shadow-none border-b border-[#E4E1D9] backdrop-blur-md text-[#303B3A]"
       }`}
     >
       {/* Upper subtle contact bar for desktop */}
-      <div
-        className={`hidden lg:block text-[11px] py-1.5 px-6 border-b transition-colors duration-300 ${
-          isTransparent
-            ? "bg-black/30 text-white/80 border-white/10"
-            : "bg-[#173D3B] text-white/80 border-white/10"
-        }`}
-      >
+      <div className="hidden lg:block text-[11px] py-1.5 px-6 border-b border-[#173D3B]/20 bg-[#173D3B] text-white/90">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
@@ -114,7 +103,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <ProLogo variant={isTransparent ? "light" : "dark"} />
+            <ProLogo variant="dark" />
           </div>
 
           {/* Desktop Nav Links */}
@@ -135,11 +124,7 @@ const Navbar = () => {
                       <Link
                         to={item.to}
                         className={`px-3 py-2 text-xs uppercase tracking-widest font-semibold transition-all relative flex items-center gap-1.5 cursor-pointer ${
-                          isTransparent
-                            ? active
-                              ? "text-white font-bold"
-                              : "text-white/80 hover:text-[#B87556]"
-                            : active
+                          active
                             ? "text-[#173D3B] font-bold"
                             : "text-[#6B7280] hover:text-[#173D3B]"
                         }`}
@@ -160,21 +145,11 @@ const Navbar = () => {
                           : "opacity-0 invisible -translate-y-2 pointer-events-none"
                       }`}
                     >
-                      <div
-                        className={`rounded-2xl p-2 shadow-2xl border backdrop-blur-xl ${
-                          isTransparent
-                            ? "bg-[#071312]/95 border-white/15 text-white"
-                            : "bg-[#F7F5EF]/98 border-[#E4E1D9] text-[#173D3B]"
-                        }`}
-                      >
+                      <div className="rounded-2xl p-2 shadow-2xl border backdrop-blur-xl bg-[#F7F5EF]/98 border-[#E4E1D9] text-[#173D3B]">
                         <Link
                           to="/properties"
                           onClick={() => setDropdownOpen(false)}
-                          className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors ${
-                            isTransparent
-                              ? "hover:bg-white/10 text-white"
-                              : "hover:bg-white text-[#173D3B] hover:text-[#B87556]"
-                          }`}
+                          className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors hover:bg-white text-[#173D3B] hover:text-[#B87556]"
                         >
                           <Building2 className="w-3.5 h-3.5 text-[#B87556]" />
                           <span>All Properties</span>
@@ -183,11 +158,7 @@ const Navbar = () => {
                         <button
                           type="button"
                           onClick={() => handleSectionScroll("ongoing-projects")}
-                          className={`w-full text-left flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer ${
-                            isTransparent
-                              ? "hover:bg-white/10 text-white"
-                              : "hover:bg-white text-[#173D3B] hover:text-[#B87556]"
-                          }`}
+                          className="w-full text-left flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer hover:bg-white text-[#173D3B] hover:text-[#B87556]"
                         >
                           <span className="w-2 h-2 rounded-full bg-[#B87556] animate-pulse" />
                           <span>Ongoing Projects</span>
@@ -196,11 +167,7 @@ const Navbar = () => {
                         <button
                           type="button"
                           onClick={() => handleSectionScroll("recent-completed")}
-                          className={`w-full text-left flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer ${
-                            isTransparent
-                              ? "hover:bg-white/10 text-white"
-                              : "hover:bg-white text-[#173D3B] hover:text-[#B87556]"
-                          }`}
+                          className="w-full text-left flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider font-semibold transition-colors cursor-pointer hover:bg-white text-[#173D3B] hover:text-[#B87556]"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A46D]" />
                           <span>Recent Completed</span>
@@ -216,11 +183,7 @@ const Navbar = () => {
                   key={item.label}
                   to={item.to}
                   className={`px-3 py-2 text-xs uppercase tracking-widest font-semibold transition-all relative ${
-                    isTransparent
-                      ? active
-                        ? "text-white font-bold"
-                        : "text-white/80 hover:text-[#B87556]"
-                      : active
+                    active
                       ? "text-[#173D3B] font-bold"
                       : "text-[#6B7280] hover:text-[#173D3B]"
                   }`}
@@ -238,11 +201,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/properties"
-              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs uppercase tracking-widest font-semibold transition-all duration-200 shadow-sm hover:shadow cursor-pointer ${
-                isTransparent
-                  ? "bg-[#B87556] hover:bg-[#A56346] text-white"
-                  : "bg-[#173D3B] hover:bg-[#B87556] text-white"
-              }`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs uppercase tracking-widest font-semibold transition-all duration-200 shadow-sm hover:shadow cursor-pointer bg-[#173D3B] hover:bg-[#B87556] text-white"
             >
               <span>Explore Properties</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -253,11 +212,7 @@ const Navbar = () => {
           <div className="flex md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 rounded-lg focus:outline-none cursor-pointer ${
-                isTransparent
-                  ? "text-white hover:bg-white/10"
-                  : "text-[#173D3B] hover:bg-black/5"
-              }`}
+              className="p-2 rounded-lg focus:outline-none cursor-pointer text-[#173D3B] hover:bg-black/5"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (

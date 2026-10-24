@@ -265,30 +265,24 @@ const Home = () => {
     }
 
     const ctx = gsap.context(() => {
-      // 1. HERO SECTION ENTRANCE & PARALLAX
+      // 1. HERO SECTION ENTRANCE (ELORIA Editorial Stagger & Cinematic Reveal)
       if (heroRef.current) {
-        // Hero background image subtle parallax scrub
-        if (heroBgRef.current) {
-          gsap.to(heroBgRef.current, {
-            yPercent: 18,
-            ease: "none",
-            scrollTrigger: {
-              trigger: heroRef.current,
-              start: "top top",
-              end: "bottom top",
-              scrub: 0.6,
-            },
-          });
-        }
-
-        // Hero content entrance timeline
         const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        if (heroBgRef.current) {
+          heroTl.fromTo(
+            heroBgRef.current,
+            { scale: 1.12, opacity: 0.65 },
+            { scale: 1, opacity: 1, duration: 1.4, ease: "power2.out" }
+          );
+        }
 
         if (heroBadgeRef.current) {
           heroTl.fromTo(
             heroBadgeRef.current,
-            { opacity: 0, x: -25 },
-            { opacity: 1, x: 0, duration: 0.8, delay: 0.1 }
+            { opacity: 0, y: -16 },
+            { opacity: 1, y: 0, duration: 0.75 },
+            "-=1.1"
           );
         }
 
@@ -297,7 +291,7 @@ const Home = () => {
             heroTitleRef.current,
             { opacity: 0, y: 35 },
             { opacity: 1, y: 0, duration: 0.95 },
-            "-=0.6"
+            "-=0.75"
           );
         }
 
@@ -322,26 +316,26 @@ const Home = () => {
         if (heroPreviewRef.current) {
           heroTl.fromTo(
             heroPreviewRef.current,
-            { opacity: 0, x: 30, scale: 0.96 },
-            { opacity: 1, x: 0, scale: 1, duration: 0.9 },
+            { opacity: 0, y: 40, scale: 0.94 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.95, ease: "power2.out" },
             "-=0.7"
-          );
-        }
-
-        if (heroSearchRef.current) {
-          heroTl.fromTo(
-            heroSearchRef.current,
-            { opacity: 0, y: 28 },
-            { opacity: 1, y: 0, duration: 0.85 },
-            "-=0.5"
           );
         }
 
         if (heroTrustRef.current) {
           heroTl.fromTo(
             heroTrustRef.current,
-            { opacity: 0, y: 16 },
-            { opacity: 1, y: 0, duration: 0.75 },
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.85 },
+            "-=0.5"
+          );
+        }
+
+        if (heroSearchRef.current) {
+          heroTl.fromTo(
+            heroSearchRef.current,
+            { opacity: 0, y: 24 },
+            { opacity: 1, y: 0, duration: 0.85 },
             "-=0.4"
           );
         }
@@ -650,188 +644,152 @@ const Home = () => {
 
   return (
     <div ref={homeContainerRef} className="flex flex-col min-h-screen overflow-x-hidden">
-      {/* 1. HERO SECTION */}
+            {/* 1. HERO SECTION (Cinematic Editorial Luxury Banner) */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex flex-col justify-between pt-32 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 px-4 sm:px-8 lg:px-14 xl:px-20 overflow-hidden bg-[#071312]"
+        className="relative min-h-screen flex flex-col justify-between overflow-hidden bg-[#0B1A19] text-white"
       >
-        {/* Architectural Background Image with Smooth Parallax */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* Full-Bleed Architectural Background Image */}
+        <div className="absolute inset-0 z-0">
           <img
             ref={heroBgRef}
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2600&q=90"
-            alt="Havenstone Modern Glass Architecture at Twilight"
-            className="w-full h-[125%] -top-[12%] absolute inset-0 object-cover object-center scale-105 will-change-transform"
+            src="https://i.ibb.co.com/nNxGNNZr/banner.png"
+            alt="Havenstone Architectural Living"
+            className="w-full h-full object-cover object-center scale-105"
           />
-
-          {/* Cinematic Multi-layered Atmosphere Gradients */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#071312]/95 via-[#071312]/75 lg:via-[#071312]/60 to-[#071312]/40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#071312]/90 via-transparent to-[#071312]" />
-          <div className="absolute right-10 sm:right-1/4 top-1/4 w-[450px] sm:w-[650px] h-[450px] sm:h-[650px] bg-[#B87556]/15 rounded-full blur-[140px] pointer-events-none" />
+          
+          {/* Multi-layered Cinematic Gradients for Text Readability */}
+          {/* Left side dark gradient so the text pops out */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B1A19]/90 via-[#0B1A19]/50 to-transparent" />
+          {/* Bottom gradient to blend into the next section */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1A19] via-transparent to-[#0B1A19]/40" />
         </div>
 
-        {/* Delicate Architectural Golden Frame SVG Motif */}
-        <div className="absolute right-0 top-24 bottom-24 w-1/2 pointer-events-none hidden lg:block overflow-hidden z-[2] opacity-40">
-          <svg className="w-full h-full" viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M 50 0 C 150 250, 200 450, 50 800"
-              stroke="url(#champagneGoldGrad)"
-              strokeWidth="1"
-              strokeDasharray="4 6"
-            />
-            <circle cx="50" cy="400" r="4" fill="#C5A46D" />
-            <line x1="50" y1="400" x2="350" y2="400" stroke="url(#champagneGoldGrad)" strokeWidth="0.75" strokeDasharray="3 4" />
-            <defs>
-              <linearGradient id="champagneGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#C5A46D" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#B87556" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#F5E6D3" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
+        {/* Top Header / Ribbon */}
+        <div className="relative z-10 w-full px-6 sm:px-12 pt-28 sm:pt-32 flex items-center justify-between text-[11px] font-mono tracking-[0.2em] text-white/60 uppercase">
+          <div className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A46D] animate-pulse" />
+            <span className="text-white font-semibold">HAVENSTONE</span>
+            <span className="text-[#C5A46D]">&bull;</span>
+            <span>CURATED LIVING</span>
+          </div>
+          <div className="hidden md:flex items-center gap-4">
+            <span>PRIVATE CLIENT ADVISORY</span>
+            <span className="w-[1px] h-3 bg-white/20" />
+            <span>EST. 2026</span>
+          </div>
         </div>
 
-        {/* Asymmetrical Editorial Body: Left Editorial + Right Architectural Showcase */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center flex-1 my-auto">
-
-          {/* Left Editorial Section */}
-          <div className="lg:col-span-7 xl:col-span-7 flex flex-col justify-center">
-            {/* Overline with copper architectural indicator */}
+        {/* Main Center Content (Typography Only) */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex-grow flex items-center">
+          <div className="max-w-3xl">
+            {/* Eyebrow */}
             <div
               ref={heroBadgeRef}
-              className="flex items-center gap-3 mb-6"
+              className="flex items-center gap-4 mb-6"
             >
-              <span className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-[#C5A46D] to-transparent" />
-              <span className="text-[11px] sm:text-xs font-semibold tracking-[0.3em] uppercase text-[#C5A46D]">
-                The Havenstone Collection • Private Estates
+              <span className="w-12 h-[1.5px] bg-[#C5A46D]" />
+              <span className="text-xs font-semibold tracking-[0.3em] uppercase text-[#C5A46D]">
+                Exceptional Homes &bull; Thoughtfully Selected
               </span>
             </div>
 
-            {/* Editorial Headline */}
+            {/* Oversized Editorial Serif Headline */}
             <h1
               ref={heroTitleRef}
-              className="font-serif text-4xl sm:text-6xl lg:text-[70px] xl:text-[82px] text-white font-normal leading-[1.06] tracking-tight"
+              className="font-serif text-5xl sm:text-6xl lg:text-[5.5rem] text-white font-light leading-[1.05] tracking-tight mb-8 drop-shadow-2xl"
             >
-              Your Next Chapter <br />
-              <span className="italic font-serif text-transparent bg-clip-text bg-gradient-to-r from-[#F5E6D3] via-[#E5D2B8] to-[#C5A46D]">
-                Starts Here.
+              A More Considered <br />
+              <span className="italic text-[#E5D2B8]">
+                Way to Live.
               </span>
             </h1>
 
-            {/* Supporting Copy */}
+            {/* Subtitle */}
             <p
               ref={heroSubtitleRef}
-              className="mt-6 text-base sm:text-lg text-neutral-300 max-w-xl leading-relaxed font-light"
+              className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed font-light mb-10"
             >
-              Havenstone Realty represents an uncompromising global portfolio of architecturally distinguished residences, skyline penthouses, and private coastal promontories.
+              Discover exceptional properties, thoughtfully selected for the way you want to live. Havenstone Realty curates an uncompromising global portfolio of architectural residences, coastal promontories, and skyline penthouses.
             </p>
 
-            {/* CTAs */}
+            {/* Action Buttons */}
             <div
               ref={heroCtaRef}
-              className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4 sm:gap-6"
+              className="flex flex-wrap items-center gap-6"
             >
               <Link
                 to="/properties"
-                className="group relative inline-flex items-center gap-3 px-7 py-3.5 sm:py-4 bg-gradient-to-r from-[#B87556] to-[#9E5F43] hover:from-[#C5A46D] hover:to-[#B87556] text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-xl shadow-black/50 hover:shadow-[#B87556]/20 border border-[#C5A46D]/40"
+                className="group inline-flex items-center gap-3 px-8 py-4 bg-[#C5A46D] hover:bg-[#B87556] text-[#0B1A19] hover:text-white text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300"
               >
-                <span>Explore The Collection</span>
+                <span>Explore Properties</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
+
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-medium text-neutral-300 hover:text-[#C5A46D] transition-colors py-3"
+                className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-white/90 hover:text-[#C5A46D] transition-colors py-3"
               >
-                <span>Schedule Private Advisory</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                <span>Schedule Private Consultation</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
               </Link>
             </div>
           </div>
-
-          {/* Right Architectural Showcase: Floating Monograph Card */}
-          <div
-            ref={heroPreviewRef}
-            className="lg:col-span-5 xl:col-span-5 flex flex-col justify-end lg:items-end"
-          >
-            <div className="w-full max-w-sm bg-[#081514]/80 backdrop-blur-xl border border-white/15 p-6 rounded-none shadow-2xl relative overflow-hidden group">
-              {/* Subtle top copper accent border */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#C5A46D] via-[#B87556] to-transparent" />
-
-              <div className="flex items-center justify-between text-[10px] tracking-[0.25em] uppercase text-neutral-400 mb-3">
-                <span className="flex items-center gap-2 text-[#C5A46D] font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C5A46D] animate-ping" />
-                  Featured Provenance
-                </span>
-                <span>№ 104 • BEL-AIR</span>
-              </div>
-
-              <h3 className="font-serif text-xl sm:text-2xl text-white font-normal mb-1">
-                The Promontory Glass Residence
-              </h3>
-              <p className="text-xs text-neutral-400 mb-4 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#B87556]" />
-                Bel Air Crest, Los Angeles, CA
-              </p>
-
-              <div className="grid grid-cols-3 gap-2 py-3 border-y border-white/10 text-neutral-300 text-xs mb-4">
-                <div>
-                  <div className="text-[10px] uppercase tracking-wider text-neutral-400">Bedrooms</div>
-                  <div className="font-semibold text-white mt-0.5">6 Beds</div>
-                </div>
-                <div>
-                  <div className="text-[10px] uppercase tracking-wider text-neutral-400">Bathrooms</div>
-                  <div className="font-semibold text-white mt-0.5">8 Baths</div>
-                </div>
-                <div>
-                  <div className="text-[10px] uppercase tracking-wider text-neutral-400">Interior</div>
-                  <div className="font-semibold text-white mt-0.5">14,500 SQFT</div>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] uppercase tracking-wider text-neutral-400 block">Acquisition Valuation</span>
-                  <span className="font-serif text-lg text-[#F5E6D3] font-semibold tracking-wide">$28,500,000 USD</span>
-                </div>
-                <Link
-                  to="/properties"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-[#C5A46D] hover:text-white transition-colors"
-                >
-                  <span>Inquire</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </div>
-
         </div>
 
-        {/* Lower Section: Slim Dark Translucent Search Bar + Trust Indicators */}
-        <div className="relative z-10 w-full mt-10 sm:mt-12">
-          <div ref={heroSearchRef} className="w-full mb-6">
-            <PropertySearch />
-          </div>
+        {/* Bottom Section: 4-Stat Credibility Bar */}
+        <div
+          ref={heroTrustRef}
+          className="relative z-10 w-full border-t border-white/10 bg-gradient-to-r from-[#0B1A19]/80 to-transparent backdrop-blur-sm"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-white/10">
+              
+              <div className="pt-4 md:pt-0 md:px-6 first:pl-0">
+                <span className="font-serif text-3xl lg:text-4xl font-light text-[#E5D2B8] block mb-2">
+                  18+
+                </span>
+                <span className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-[0.15em] font-light block">
+                  Years of Curated Advisory
+                </span>
+              </div>
 
-          {/* Discreet Luxury Trust Indicators */}
-          <div
-            ref={heroTrustRef}
-            className="max-w-5xl mx-auto w-full pt-4 border-t border-white/10 hidden sm:flex items-center justify-between text-center text-[11px] sm:text-xs text-neutral-400 tracking-wider uppercase"
-          >
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#C5A46D]" />
-              <span>Strict Client Confidentiality & NDAs</span>
-            </div>
-            <span className="w-1 h-1 rounded-full bg-white/20" />
-            <div className="flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-[#C5A46D]" />
-              <span>Vetted Architectural Provenance</span>
-            </div>
-            <span className="w-1 h-1 rounded-full bg-white/20" />
-            <div className="flex items-center gap-2">
-              <Compass className="w-4 h-4 text-[#C5A46D]" />
-              <span>Prime Global Urban & Coastal Enclaves</span>
+              <div className="pt-4 md:pt-0 md:px-6">
+                <span className="font-serif text-3xl lg:text-4xl font-light text-[#E5D2B8] block mb-2">
+                  $2.4B+
+                </span>
+                <span className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-[0.15em] font-light block">
+                  Private Portfolio Volume
+                </span>
+              </div>
+
+              <div className="pt-4 md:pt-0 md:px-6">
+                <span className="font-serif text-3xl lg:text-4xl font-light text-[#E5D2B8] block mb-2">
+                  98%
+                </span>
+                <span className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-[0.15em] font-light block">
+                  Client Retention & Discretion
+                </span>
+              </div>
+
+              <div className="pt-4 md:pt-0 md:px-6">
+                <span className="font-serif text-3xl lg:text-4xl font-light text-[#E5D2B8] block mb-2">
+                  45+
+                </span>
+                <span className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-[0.15em] font-light block">
+                  Exclusive Global Estates
+                </span>
+              </div>
+
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Integrated Search Console Directly Below Hero */}
+      <section ref={heroSearchRef} className="relative z-20 bg-[#F7F5EF] pt-8 pb-12 px-4 sm:px-8 lg:px-12 border-b border-[#E4E1D9]">
+        <div className="max-w-7xl mx-auto">
+          <PropertySearch />
         </div>
       </section>
 
@@ -1751,7 +1709,7 @@ const Home = () => {
       {/* 5. CONTACT CTA SECTION */}
       <section
         ref={contactCtaSectionRef}
-        className="relative py-20 bg-[#F7F5EF] border-t border-[#E4E1D9] overflow-hidden"
+        className="relative py-20 bg-[#F7F5EF] overflow-hidden"
       >
         <div
           ref={contactCtaContentRef}

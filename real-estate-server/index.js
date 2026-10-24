@@ -134,3 +134,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`real estate server is running ${port}`)
 })
+
+module.exports = app;
