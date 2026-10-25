@@ -1,47 +1,14 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "real-state-client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+  "experimentalServices": {
+    "frontend": {
+      "root": "real-state-client/",
+      "framework": "vite",
+      "routePrefix": "/"
     },
-    {
-      "src": "real-estate-server/index.js",
-      "use": "@vercel/node"
+    "backend": {
+      "root": "real-estate-server/",
+      "entrypoint": "index.js",
+      "routePrefix": "/api"
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "real-estate-server/index.js"
-    },
-    {
-      "src": "/inquiries",
-      "methods": ["POST", "GET"],
-      "dest": "real-estate-server/index.js"
-    },
-    {
-      "src": "/inquiries/(.*)",
-      "dest": "real-estate-server/index.js"
-    },
-    {
-      "src": "/contact",
-      "methods": ["POST"],
-      "dest": "real-estate-server/index.js"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "real-state-client/assets/$1"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "real-state-client/index.html"
-    }
-  ]
+  }
 }
