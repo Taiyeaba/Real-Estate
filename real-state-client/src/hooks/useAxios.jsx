@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+  // এখন এটি .env থেকে /api নেবে, অথবা ডিফল্টভাবে /api ব্যবহার করবে
+  baseURL: import.meta.env.VITE_API_URL || '/api',
 });
 
 const useAxios = () => {
