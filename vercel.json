@@ -1,14 +1,43 @@
 {
   "services": {
     "frontend": {
-      "root": "real-state-client/",
-      "framework": "vite",
-      "routePrefix": "/"
+      "root": "real-state-client/"
     },
     "backend": {
       "root": "real-estate-server/",
-      "entrypoint": "index.js",
-      "routePrefix": "/api"
+      "entrypoint": "index.js"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/properties(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/inquiries(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/contact(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
+  ]
 }
