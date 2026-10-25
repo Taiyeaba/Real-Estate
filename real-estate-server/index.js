@@ -32,7 +32,7 @@ async function run() {
     const contactsCollection = database.collection('contacts');
 
     // 1. GET ALL PROPERTIES
-    app.get('/properties', async (req, res) => {
+    app.get('/api/properties', async (req, res) => {
       try {
         const result = await propertiesCollection.find().toArray();
         res.send(result);
@@ -42,7 +42,7 @@ async function run() {
     });
 
     // 2. GET SINGLE PROPERTY BY ID OR SLUG OR _ID
-    app.get('/properties/:id', async (req, res) => {
+    app.get('/api/properties/:id', async (req, res) => {
       try {
         const id = req.params.id;
         const query = {
@@ -67,7 +67,7 @@ async function run() {
     });
 
     // 3. POST PROPERTY INQUIRY / TOUR BOOKING
-    app.post('/inquiries', async (req, res) => {
+    app.post('/api/inquiries', async (req, res) => {
       try {
         const inquiryData = {
           ...req.body,
@@ -82,7 +82,7 @@ async function run() {
     });
 
     // 4. GET ALL PROPERTY INQUIRIES
-    app.get('/inquiries', async (req, res) => {
+    app.get('/api/inquiries', async (req, res) => {
       try {
         const result = await inquiriesCollection.find().sort({ createdAt: -1 }).toArray();
         res.send(result);
@@ -92,7 +92,7 @@ async function run() {
     });
 
     // 5. POST GENERAL CONTACT MESSAGE
-    app.post('/contact', async (req, res) => {
+    app.post('/api/contact', async (req, res) => {
       try {
         const contactData = {
           ...req.body,
@@ -107,7 +107,7 @@ async function run() {
     });
 
     // 6. GET ALL CONTACT MESSAGES
-    app.get('/contact', async (req, res) => {
+    app.get('/api/contact', async (req, res) => {
       try {
         const result = await contactsCollection.find().sort({ createdAt: -1 }).toArray();
         res.send(result);

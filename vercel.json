@@ -1,0 +1,14 @@
+{
+  "experimentalServices": {
+    "frontend": {
+      "root": "real-state-client/",
+      "framework": "vite",
+      "routePrefix": "/"
+    },
+    "backend": {
+      "root": "real-estate-server/",
+      "entrypoint": "index.js",
+      "routePrefix": "/api"
+    }
+  }
+}
